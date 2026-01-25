@@ -3,7 +3,7 @@ import { Command } from "commander";
 import path from "path";
 import { loadCommands } from "./loader.js";
 import { color, paint } from "./colors.js";
-import tips from "../meta/tips.js"
+import { tips } from "../meta/tips.js"
 const program = new Command();
 
 program

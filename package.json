@@ -16,6 +16,7 @@
   "author": "Shuffle",
   "license": "MIT",
   "dependencies": {
+    "commander": "^14.0.2",
     "node-fetch": "^3.3.1",
     "typescript": "^5.9.3",
     "zod": "^4.3.6"
