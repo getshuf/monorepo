@@ -27,7 +27,7 @@ externalPort = 3000
 expertMode = true
 
 [workflows]
-runButton = "Build"
+runButton = "Link it"
 
 [[workflows.workflow]]
 name = "Build"
@@ -45,7 +45,7 @@ author = 51624948
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx -y @agent-infra/mcp-server-filesystem --port 8089 --allowed-directories src"
+args = "cd .. && npx -y @agent-infra/mcp-server-filesystem --port 8089 --allowed-directories workspace"
 
 [[workflows.workflow]]
 name = "Link it"
@@ -54,4 +54,4 @@ author = 51624948
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm link -l . && bash"
+args = "tsc && npm link -l . && bash"
