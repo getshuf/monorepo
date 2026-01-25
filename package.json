@@ -1,0 +1,27 @@
+{
+  "name": "@getshuf/monorepo",
+  "version": "1.0.0",
+  "description": "Open-source monorepo for Shuffle",
+  "main": "dist/index.js",
+  "bin": {
+    "shuffle": "dist/bin/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "build:watch": "tsc --watch"
+  },
+  "author": "Shuffle",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.1",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.1"
+  }
+}

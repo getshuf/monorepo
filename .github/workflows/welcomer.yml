@@ -1,0 +1,48 @@
+name: Issue Auto Reply
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post reply as bot
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.BOT_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const message = `
+# Shuffle! Need a little help?
+
+Welcome to the Shuffle community ✨  
+We're glad you're here.
+
+To help us solve your issue faster, please include:
+
+- What you were trying to do
+- What happened (errors, logs, screenshots)
+- What you expected to happen
+- Code snippets if relevant
+- Your environment (OS, runtime, versions)
+- Debug logs (if available)
+
+Low-effort, spam, or off-topic issues may be closed without notice.
+
+---
+
+### 💡 Need help?
+just @mention the maintainers or apply the "help wanted" label to your issue.`
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body: message
+            });
