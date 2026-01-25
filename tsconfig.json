@@ -29,9 +29,13 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"allowImportingTsExtensions": false,
-		"jsx": "react-jsx"
-	},
+		"jsx": "react-jsx",
 
+		// 🔑 Critical for bin/CLI support:
+		"noEmitHelpers": false,
+		"importHelpers": true,
+		"downlevelIteration": true
+	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist"]
 }

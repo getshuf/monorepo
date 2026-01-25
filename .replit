@@ -46,3 +46,12 @@ author = 51624948
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npx -y @agent-infra/mcp-server-filesystem --port 8089 --allowed-directories src"
+
+[[workflows.workflow]]
+name = "Link it"
+mode = "sequential"
+author = 51624948
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm link -l . && bash"
