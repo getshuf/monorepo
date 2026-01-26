@@ -12,6 +12,9 @@ export declare enum Permission {
     MetaRead = "meta:read",
     MetaWrite = "meta:write",
     DevInspect = "dev:inspect",
+    SystemUpdate = "system:update",
+    UserManage = "user:manage",
+    LogsRead = "logs:read",
     Admin = "*"
 }
 export type PermissionSet = Permission[];

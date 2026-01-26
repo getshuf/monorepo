@@ -17,6 +17,9 @@ export enum Permission {
   MetaWrite = "meta:write",
 
   DevInspect = "dev:inspect",
+  SystemUpdate = "system:update",
+  UserManage = "user:manage",
+  LogsRead = "logs:read",
   Admin = "*",
 }
 

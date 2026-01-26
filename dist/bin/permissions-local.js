@@ -1,12 +1,18 @@
 import { Permission } from "../types/permissions.js";
+import { loadUserMeta } from "../meta/store.js";
 /**
  * Default local permission resolver.
- * Currently allows everything.
- * Replace later with real auth logic.
+ * Checks against the user's meta store for a "permissions" type.
  */
 export const LocalPermissionResolver = {
     has(permission) {
-        return true;
+        const store = loadUserMeta();
+        const userPermissions = store.permissions || {};
+        // Admin override
+        if (userPermissions["*"] === true || userPermissions["*"] === "true") {
+            return true;
+        }
+        return userPermissions[permission] === true || userPermissions[permission] === "true";
     }
 };
 //# sourceMappingURL=permissions-local.js.map

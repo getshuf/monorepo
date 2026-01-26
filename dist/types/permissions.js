@@ -13,6 +13,9 @@ export var Permission;
     Permission["MetaRead"] = "meta:read";
     Permission["MetaWrite"] = "meta:write";
     Permission["DevInspect"] = "dev:inspect";
+    Permission["SystemUpdate"] = "system:update";
+    Permission["UserManage"] = "user:manage";
+    Permission["LogsRead"] = "logs:read";
     Permission["Admin"] = "*";
 })(Permission || (Permission = {}));
 //# sourceMappingURL=permissions.js.map
