@@ -97,7 +97,7 @@ function registerCommand(
   let cmd = categoryCmd.command(def.name);
 
   if (def.description) cmd.description(def.description);
-  if (def.hidden) cmd.hidden();
+  if (def.hidden) (cmd as any).hidden();
 
   if (def.aliases) for (const a of def.aliases) cmd.alias(a);
 

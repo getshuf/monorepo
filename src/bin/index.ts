@@ -24,7 +24,7 @@ program
 program.addHelpText(
   "beforeAll",
   paint(color.blue, "\n❯ Shuffle Runtime CLI\n") +
-  paint(color.gray, "Filesystem-driven command system\n\n")
+    paint(color.gray, "Filesystem-driven command system\n\n"),
 );
 
 const commandsDir = path.join(__dirname, "commands");
@@ -33,6 +33,6 @@ await loadCommands(program, commandsDir, LocalPermissionResolver);
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-  await showCLIMetadata();   // ✨ here
+  await showCLIMetadata(); // ✨ here
   program.outputHelp();
 }

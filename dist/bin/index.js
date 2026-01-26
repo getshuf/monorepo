@@ -5,7 +5,8 @@ import { fileURLToPath } from "url";
 import { loadCommands } from "./loader.js";
 import { LocalPermissionResolver } from "./permissions-local.js";
 import { color, paint } from "./colors.js";
-import pkg from "../../package.json" assert { type: "json" };
+import { showCLIMetadata } from "../meta/cli-display.js";
+import pkg from "../../package.json" with { type: "json" };
 const { version } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,6 +21,7 @@ const commandsDir = path.join(__dirname, "commands");
 await loadCommands(program, commandsDir, LocalPermissionResolver);
 program.parse(process.argv);
 if (!process.argv.slice(2).length) {
+    await showCLIMetadata(); // ✨ here
     program.outputHelp();
 }
 //# sourceMappingURL=index.js.map
