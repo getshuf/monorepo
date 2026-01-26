@@ -2,7 +2,8 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
-const META_FILE = path.join(os.homedir(), ".shuffle.json");
+// current+/meta.json
+const META_FILE = path.join(os.homedir(), ".shuffle", "meta.json");
 
 /**
  * Loads the user meta store (returns {} if missing)
