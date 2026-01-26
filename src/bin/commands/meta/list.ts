@@ -11,7 +11,7 @@ export const command: CommandDefinition = {
     const metaModules = await loadMetaModules();
     
     const visibleMeta = metaModules
-      .filter(m => m.meta.showOnCLI)
+      .filter(m => m.meta && m.meta.showOnCLI)
       .map(m => m.meta);
 
     console.log(paint(color.cyan, "\n❯ Available Metadata (Definitions)"));
