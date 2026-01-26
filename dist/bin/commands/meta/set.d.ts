@@ -1,3 +1,2 @@
-import type { CommandDefinition } from "../../loader.js";
-export declare const command: CommandDefinition;
+export {};
 //# sourceMappingURL=set.d.ts.map
