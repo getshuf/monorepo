@@ -16,10 +16,15 @@
   "author": "Shuffle",
   "license": "MIT",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "commander": "^14.0.2",
+    "drizzle-zod": "^0.8.3",
     "node-fetch": "^3.3.1",
+    "p-limit": "^7.2.0",
+    "p-retry": "^7.1.1",
     "typescript": "^5.9.3",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "zod-validation-error": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

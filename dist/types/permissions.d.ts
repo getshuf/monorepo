@@ -15,6 +15,9 @@ export declare enum Permission {
     SystemUpdate = "system:update",
     UserManage = "user:manage",
     LogsRead = "logs:read",
+    NetworkAccess = "network:access",
+    FileSystemWrite = "fs:write",
+    SecretRead = "secret:read",
     Admin = "*"
 }
 export type PermissionSet = Permission[];

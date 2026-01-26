@@ -16,6 +16,9 @@ export var Permission;
     Permission["SystemUpdate"] = "system:update";
     Permission["UserManage"] = "user:manage";
     Permission["LogsRead"] = "logs:read";
+    Permission["NetworkAccess"] = "network:access";
+    Permission["FileSystemWrite"] = "fs:write";
+    Permission["SecretRead"] = "secret:read";
     Permission["Admin"] = "*";
 })(Permission || (Permission = {}));
 //# sourceMappingURL=permissions.js.map
