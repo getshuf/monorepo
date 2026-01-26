@@ -16,9 +16,13 @@ export var Permission;
     Permission["SystemUpdate"] = "system:update";
     Permission["UserManage"] = "user:manage";
     Permission["LogsRead"] = "logs:read";
-    Permission["NetworkAccess"] = "network:access";
-    Permission["FileSystemWrite"] = "fs:write";
-    Permission["SecretRead"] = "secret:read";
+    Permission["NetworkOutbound"] = "network:outbound";
+    Permission["NetworkInbound"] = "network:inbound";
+    Permission["DatabaseQuery"] = "db:query";
+    Permission["DatabaseWrite"] = "db:write";
+    Permission["ProcessSpawn"] = "process:spawn";
+    Permission["EnvironmentRead"] = "env:read";
+    Permission["EnvironmentWrite"] = "env:write";
     Permission["Admin"] = "*";
 })(Permission || (Permission = {}));
 //# sourceMappingURL=permissions.js.map
