@@ -15,13 +15,16 @@ export declare enum Permission {
     SystemUpdate = "system:update",
     UserManage = "user:manage",
     LogsRead = "logs:read",
-    NetworkOutbound = "network:outbound",
-    NetworkInbound = "network:inbound",
     DatabaseQuery = "db:query",
     DatabaseWrite = "db:write",
     ProcessSpawn = "process:spawn",
+    ProcessKill = "process:kill",
+    ProcessSignal = "process:signal",
     EnvironmentRead = "env:read",
     EnvironmentWrite = "env:write",
+    NetworkOutbound = "network:outbound",
+    NetworkInbound = "network:inbound",
+    NetworkListen = "network:listen",
     Admin = "*"
 }
 export type PermissionSet = Permission[];

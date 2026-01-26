@@ -1,0 +1,1 @@
+{"version":3,"file":"spawn.js","sourceRoot":"","sources":["../../../src/meta/process/spawn.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,MAAM,QAAQ,GAAmB;IACtC,IAAI,EAAE,SAAS;IACf,GAAG,EAAE,OAAO;IACZ,OAAO,EAAE,KAAK;IACd,SAAS,EAAE,IAAI;IACf,WAAW,EAAE,gDAAgD;CAC9D,CAAC"}
