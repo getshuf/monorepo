@@ -30,9 +30,9 @@ program.addHelpText(
 const commandsDir = path.join(__dirname, "commands");
 await loadCommands(program, commandsDir, LocalPermissionResolver);
 
-program.parse(process.argv);
-
 if (!process.argv.slice(2).length) {
-  await showCLIMetadata(); // ✨ here
+  await showCLIMetadata();
   program.outputHelp();
+} else {
+  program.parse(process.argv);
 }

@@ -11,7 +11,7 @@ export async function showCLIMetadata() {
     if (!meta.showOnCLI) continue;
 
     const enabled = getMetaValue(store, meta.type, meta.key, meta.default);
-    if (!enabled) continue;
+    if (enabled === false || enabled === "false") continue;
 
     /* Display logic per metadata unit */
     if (meta.type === "cli" && meta.key === "help.tips") {
