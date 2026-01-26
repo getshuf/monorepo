@@ -3,6 +3,7 @@ import path from "path";
 import { pathToFileURL } from "url";
 import { Command } from "commander";
 import { color, paint } from "./colors.js";
+import { loadUserMeta, getMetaValue } from "../meta/store.js";
 
 import type { Permission, PermissionResolver } from "../types/permissions.js";
 import type { CLIContext } from "../types/context.js";
@@ -138,6 +139,17 @@ function registerCommand(
 
     try {
       if (def.permissions) checkPermissions(resolver, def.permissions);
+      
+      // Real-time metadata check for security
+      const store = loadUserMeta();
+      const metaKey = `${categoryName}.${def.name}`;
+      const isBlocked = getMetaValue(store, categoryName, def.name, true) === false || 
+                        getMetaValue(store, categoryName, def.name, true) === "false";
+      
+      if (isBlocked) {
+        throw new Error(`Command "${metaKey}" is disabled in security settings.`);
+      }
+
       if (def.before) await def.before(ctx);
       if (def.validate) await def.validate(ctx);
 
