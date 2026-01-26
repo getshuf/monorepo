@@ -47,7 +47,9 @@ export function setMetaValue(store: any, type: string, keyPath: string, value: a
   for (let i = 0; i < parts.length - 1; i++) {
     const k = parts[i];
     if (k === undefined) continue;
-    cur[k] ??= {};
+    if (cur[k] == null || typeof cur[k] !== "object") {
+      cur[k] = {};
+    }
     cur = cur[k];
   }
 

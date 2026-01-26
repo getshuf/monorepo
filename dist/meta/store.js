@@ -45,7 +45,9 @@ export function setMetaValue(store, type, keyPath, value) {
         const k = parts[i];
         if (k === undefined)
             continue;
-        cur[k] ??= {};
+        if (cur[k] == null || typeof cur[k] !== "object") {
+            cur[k] = {};
+        }
         cur = cur[k];
     }
     const lastKey = parts[parts.length - 1];
