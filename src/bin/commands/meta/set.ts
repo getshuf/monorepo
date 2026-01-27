@@ -10,6 +10,6 @@ export const command: CommandDefinition = {
     setMetaValue(store, type, key, value);
     saveUserMeta(store);
     
-    console.log(`${paint(color.green, "✔")} Configuration ${paint(color.cyan, `${type}.${key}`)} updated to ${paint(color.white, `"${value}"`)}`);
+    console.log(`${paint(color.green, "✔")} Configuration ${paint(color.cyan, `${type}.${key}`)} updated to ${paint(color.bold, `"${value}"`)}`);
   },
 };

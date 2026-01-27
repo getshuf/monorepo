@@ -10,7 +10,7 @@ export const command = {
             console.log(`${paint(color.yellow, "⚠")} No value found for ${paint(color.cyan, `${type}.${key}`)}`);
         }
         else {
-            console.log(`${paint(color.cyan, `${type}.${key}`)}: ${paint(color.white, JSON.stringify(value, null, 2))}`);
+            console.log(`${paint(color.cyan, `${type}.${key}`)}: ${paint(color.bold, JSON.stringify(value, null, 2))}`);
         }
     },
 };
