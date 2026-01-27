@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/**
+ * Shuffle CLI
+ * Control your Shuffle homeserver from the command line
+ */
 import { Command } from "commander";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -32,7 +36,7 @@ program.addHelpText(
   "beforeAll",
   `
 ${paint(color.blue, "❯ Shuffle Runtime")} ${paint(color.dim, `v${version}`)}
-${paint(color.gray, "A modular, filesystem-driven command interface.")}
+${paint(color.gray, "The official Shuffle! monorepo CLI")}
 `
 );
 
@@ -40,9 +44,9 @@ program.addHelpText(
   "afterAll",
   `
 ${paint(color.cyan, "Documentation:")}
-  See https://github.com/getshuf/shuffle for more information.
+  See https://github.com/getshuf/monorepo for more information.
 
-${paint(color.gray, "Built with Commander.js and TypeScript.")}
+${paint(color.gray, "🔥 Powered by Shuffle")}
 `
 );
 
