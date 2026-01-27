@@ -1,19 +1,25 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import type { MetaDefinition } from "./types.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+let cachedModules: { meta: MetaDefinition; module: any }[] | null = null;
 
 /**
  * Load all meta modules as pairs of { metadata, module }.
  * Each module is expected to `export const metadata = { ... }` and optionally additional exports
  * (e.g. tips, message, etc.). The loader returns both descriptor + the module so the CLI can act on it.
  */
-export async function loadMetaModules(): Promise<
+export async function loadMetaModules(forceReload = false): Promise<
   { meta: MetaDefinition; module: any }[]
 > {
+  if (cachedModules && !forceReload) {
+    return cachedModules;
+  }
+
   const result: { meta: MetaDefinition; module: any }[] = [];
   const metaRoot = path.resolve(__dirname, "../../dist/meta");
 
@@ -22,23 +28,36 @@ export async function loadMetaModules(): Promise<
   const typeDirs = fs.readdirSync(metaRoot, { withFileTypes: true })
     .filter(d => d.isDirectory());
 
-  for (const dir of typeDirs) {
+  const modulePromises = typeDirs.flatMap(dir => {
     const folder = path.join(metaRoot, dir.name);
-    const files = fs.readdirSync(folder).filter(f => f.endsWith(".js"));
-
-    for (const f of files) {
-      const full = path.join(folder, f);
-      try {
-        const mod = await import(full);
-        if (mod?.metadata) {
-          result.push({ meta: mod.metadata, module: mod });
+    return fs.readdirSync(folder)
+      .filter(f => f.endsWith(".js"))
+      .map(async f => {
+        const full = path.join(folder, f);
+        try {
+          const mod = await import(pathToFileURL(full).href);
+          if (mod?.metadata) {
+            return { meta: mod.metadata, module: mod };
+          }
+        } catch (err) {
+          console.warn(`Failed loading meta module ${full}:`, (err as any)?.message || err);
         }
-      } catch (err) {
-        // swallow individual module load errors but log them
-        console.warn(`Failed loading meta module ${full}:`, (err as any)?.message || err);
-      }
-    }
+        return null;
+      });
+  });
+
+  const loaded = await Promise.all(modulePromises);
+  for (const m of loaded) {
+    if (m) result.push(m);
   }
 
+  cachedModules = result;
   return result;
+}
+
+/**
+ * Clear the module cache
+ */
+export function clearMetaCache() {
+  cachedModules = null;
 }
