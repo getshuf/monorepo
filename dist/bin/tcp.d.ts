@@ -1,4 +1,4 @@
-export {};
+import { type Server } from "net";
 /**
  * $ shuffle tcp <subcommand>
  *
@@ -8,5 +8,8 @@ export {};
  *     You can also use `shuffle tcp status` to check if it's running
  *     and `shuffle tcp mp/port` to check the port it's running on
  *
- **/ 
+ **/
+export declare let server: Server | null;
+export declare function startServer(): Promise<void>;
+export declare function stopServer(): void;
 //# sourceMappingURL=tcp.d.ts.map

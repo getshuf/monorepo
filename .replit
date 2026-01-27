@@ -5,7 +5,7 @@ modules = ["nodejs-20", "nodejs-23"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["gh"]
+packages = ["gh", "inetutils"]
 
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
@@ -22,6 +22,11 @@ externalPort = 80
 [[ports]]
 localPort = 8089
 externalPort = 3000
+
+[[ports]]
+localPort = 8888
+externalPort = 3003
+exposeLocalhost = true
 
 [agent]
 expertMode = true
@@ -76,3 +81,12 @@ args = "npm run build"
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow]]
+name = "Sh"
+mode = "sequential"
+author = 51624948
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash"
