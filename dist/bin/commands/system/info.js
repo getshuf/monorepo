@@ -4,7 +4,6 @@ import { Permission } from "../../../types/permissions.js";
 export const command = {
     name: "info",
     description: "Show system information",
-    permissions: [Permission.DevInspect],
     action: () => {
         console.log(paint(color.cyan, "\n❯ System Information"));
         console.log(`${paint(color.gray, "Platform:")} ${os.platform()}`);
