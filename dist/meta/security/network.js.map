@@ -1,1 +1,0 @@
-{"version":3,"file":"network.js","sourceRoot":"","sources":["../../../src/meta/security/network.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,MAAM,QAAQ,GAAmB;IACtC,IAAI,EAAE,UAAU;IAChB,GAAG,EAAE,gBAAgB;IACrB,OAAO,EAAE,KAAK;IACd,SAAS,EAAE,IAAI;IACf,WAAW,EAAE,wDAAwD;CACtE,CAAC"}
