@@ -8,10 +8,10 @@ export const command = {
         if (store[type]) {
             delete store[type];
             saveUserMeta(store);
-            console.log(paint(color.green, `Successfully cleared all "${type}" metadata.`));
+            console.log(`${paint(color.green, "✔")} Cleared all ${paint(color.cyan, type)} metadata.`);
         }
         else {
-            console.log(paint(color.yellow, `No metadata found for type "${type}".`));
+            console.log(`${paint(color.yellow, "⚠")} No metadata found for type ${paint(color.cyan, type)}.`);
         }
     },
 };

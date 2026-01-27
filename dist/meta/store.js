@@ -2,7 +2,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 // current+/meta.json
-const SHUFFLE_DIR = path.join(os.homedir(), ".shuffle");
+const SHUFFLE_DIR = path.join(process.cwd(), ".shuffle");
 const META_FILE = path.join(SHUFFLE_DIR, "meta.json");
 /**
  * Ensures the configuration directory exists

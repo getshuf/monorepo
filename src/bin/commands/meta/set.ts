@@ -1,5 +1,6 @@
 import { loadUserMeta, saveUserMeta, setMetaValue } from "../../../meta/store.js";
 import type { CommandDefinition } from "../../loader.js";
+import { color, paint } from "../../colors.js";
 
 export const command: CommandDefinition = {
   name: "set <type> <key> <value>",
@@ -9,6 +10,6 @@ export const command: CommandDefinition = {
     setMetaValue(store, type, key, value);
     saveUserMeta(store);
     
-    console.log(`Successfully set ${type}.${key} to "${value}" in ~/.shuffle.json`);
+    console.log(`${paint(color.green, "✔")} Configuration ${paint(color.cyan, `${type}.${key}`)} updated to ${paint(color.white, `"${value}"`)}`);
   },
 };

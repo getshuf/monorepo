@@ -10,9 +10,9 @@ export const command: CommandDefinition = {
     const value = store?.[type]?.[key];
     
     if (value === undefined) {
-      console.log(paint(color.yellow, `No value found for ${type}.${key}`));
+      console.log(`${paint(color.yellow, "⚠")} No value found for ${paint(color.cyan, `${type}.${key}`)}`);
     } else {
-      console.log(`${type}.${key}: ${JSON.stringify(value, null, 2)}`);
+      console.log(`${paint(color.cyan, `${type}.${key}`)}: ${paint(color.white, JSON.stringify(value, null, 2))}`);
     }
   },
 };
