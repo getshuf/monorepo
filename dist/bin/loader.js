@@ -74,11 +74,9 @@ function registerCommand(categoryCmd, categoryName, def, resolver) {
                 checkPermissions(resolver, def.permissions);
             // Real-time metadata check for security
             const store = loadUserMeta();
-            const metaKey = `${categoryName}.${def.name}`;
-            const isBlocked = getMetaValue(store, categoryName, def.name, true) === false ||
-                getMetaValue(store, categoryName, def.name, true) === "false";
+            const isBlocked = getMetaValue(store, categoryName, def.name, true) === false;
             if (isBlocked) {
-                throw new Error(`Command "${metaKey}" is disabled in security settings.`);
+                throw new Error(`Command "${categoryName}.${def.name}" is disabled in security settings.`);
             }
             if (def.before)
                 await def.before(ctx);
