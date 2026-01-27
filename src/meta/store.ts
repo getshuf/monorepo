@@ -3,7 +3,17 @@ import os from "os";
 import path from "path";
 
 // current+/meta.json
-const META_FILE = path.join(os.homedir(), ".shuffle", "meta.json");
+const SHUFFLE_DIR = path.join(os.homedir(), ".shuffle");
+const META_FILE = path.join(SHUFFLE_DIR, "meta.json");
+
+/**
+ * Ensures the configuration directory exists
+ */
+function ensureDir() {
+  if (!fs.existsSync(SHUFFLE_DIR)) {
+    fs.mkdirSync(SHUFFLE_DIR, { recursive: true });
+  }
+}
 
 /**
  * Loads the user meta store (returns {} if missing)
@@ -21,6 +31,7 @@ export function loadUserMeta(): any {
  * Persist the meta store to disk
  */
 export function saveUserMeta(store: any) {
+  ensureDir();
   fs.writeFileSync(META_FILE, JSON.stringify(store, null, 2));
 }
 
