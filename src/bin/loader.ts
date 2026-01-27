@@ -142,7 +142,8 @@ function registerCommand(
       
       // Real-time metadata check for security
       const store = loadUserMeta();
-      const isBlocked = getMetaValue(store, categoryName, def.name, true) === false;
+      const rawValue = getMetaValue(store, categoryName, def.name, true);
+      const isBlocked = rawValue === false || rawValue === "false";
       
       if (isBlocked) {
         throw new Error(`Command "${categoryName}.${def.name}" is disabled in security settings.`);
