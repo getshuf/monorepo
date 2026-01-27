@@ -4,5 +4,6 @@ export interface MetaDefinition {
     default: any;
     showOnCLI?: boolean;
     description?: string;
+    action?: (store: any) => Promise<void> | void;
 }
 //# sourceMappingURL=types.d.ts.map

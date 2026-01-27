@@ -147,7 +147,10 @@ function registerCommand(
         const rawValue = getMetaValue(store, categoryName, def.name, true);
         const isBlocked = rawValue === false || rawValue === "false";
         
-        if (isBlocked) {
+        // Check for specific 'network.listen' override
+        const networkListen = getMetaValue(store, "network", "listen", false);
+        
+        if (isBlocked && !networkListen) {
           throw new Error(`Command "${categoryName}.${def.name}" is disabled in security settings.`);
         }
       }
