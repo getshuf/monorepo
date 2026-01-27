@@ -10,8 +10,27 @@ export const metadata = {
     description: "Create a TCP server to listen for incoming connections, e.g. for remote debugging or CLI access",
     action: async (store) => {
         const enabled = getMetaValue(store, "network", "listen", false);
+        const maxConnections = getMetaValue(store, "network", "maxConnections", 5);
+        const logConnections = getMetaValue(store, "network", "logConnections", true);
         if (enabled) {
+            console.log(paint(color.cyan, `ℹ Initializing network listener (Max Connections: ${maxConnections})...`));
+            // Configuration validation
+            if (maxConnections < 1) {
+                console.warn(paint(color.yellow, "⚠ Invalid maxConnections. Resetting to default (5)."));
+            }
             await startServer();
+            if (server) {
+                server.maxConnections = maxConnections;
+                if (logConnections) {
+                    server.on("connection", (socket) => {
+                        const remote = `${socket.remoteAddress}:${socket.remotePort}`;
+                        console.log(paint(color.gray, `• Connection established from ${remote}`));
+                        socket.on("close", () => {
+                            console.log(paint(color.gray, `• Connection closed from ${remote}`));
+                        });
+                    });
+                }
+            }
         }
         else {
             stopServer();
@@ -61,7 +80,9 @@ export async function startServer() {
     const host = getMetaValue(store, "network", "host", "127.0.0.1");
     server = createServer((conn) => {
         conn.on("data", (buf) => on(conn, buf.toString()));
-        conn.on("error", () => { });
+        conn.on("error", (err) => {
+            console.error(paint(color.red, `✖ Connection error: ${err.message}`));
+        });
     });
     return new Promise((resolve, reject) => {
         server?.listen(port, host, () => {
