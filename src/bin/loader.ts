@@ -141,12 +141,15 @@ function registerCommand(
       if (def.permissions) checkPermissions(resolver, def.permissions);
       
       // Real-time metadata check for security
-      const store = loadUserMeta();
-      const rawValue = getMetaValue(store, categoryName, def.name, true);
-      const isBlocked = rawValue === false || rawValue === "false";
-      
-      if (isBlocked) {
-        throw new Error(`Command "${categoryName}.${def.name}" is disabled in security settings.`);
+      // Skip blocking for administrative commands like "meta"
+      if (categoryName !== "meta") {
+        const store = loadUserMeta();
+        const rawValue = getMetaValue(store, categoryName, def.name, true);
+        const isBlocked = rawValue === false || rawValue === "false";
+        
+        if (isBlocked) {
+          throw new Error(`Command "${categoryName}.${def.name}" is disabled in security settings.`);
+        }
       }
 
       if (def.before) await def.before(ctx);

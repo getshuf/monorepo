@@ -1,4 +1,4 @@
-import type { MetaDefinition } from "../types.js";
+import type { MetaDefinition } from "../../meta/types.js";
 
 export const metadata: MetaDefinition = {
   type: "network",
