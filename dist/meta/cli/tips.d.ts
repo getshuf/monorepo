@@ -1,9 +1,4 @@
-export declare const metadata: {
-    type: string;
-    key: string;
-    default: boolean;
-    showOnCLI: boolean;
-    description: string;
-};
+import type { MetaDefinition } from "../types.js";
+export declare const metadata: MetaDefinition;
 export declare const tips: string[];
 //# sourceMappingURL=tips.d.ts.map
