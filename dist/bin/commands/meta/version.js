@@ -1,8 +1,10 @@
 import { color, paint } from "../../colors.js";
-import pkg from "../../../../package.json" with { type: "json" };
 import ora from "ora";
 import fs from "node:fs";
 import path from "node:path";
+import rawPkg from "../../../../package.json" with { type: "json" };
+const pkg = rawPkg;
+/* ---------------- Utility Detectors ---------------- */
 function isWorkspace(version) {
     return (version.startsWith("workspace:") ||
         version.startsWith("file:") ||
@@ -25,6 +27,7 @@ function extractGithubRepo(version, name) {
         return name;
     return null;
 }
+/* ---------------- Remote Fetchers ---------------- */
 async function fetchNpmLatest(name) {
     const spinner = ora(`npm → ${name}`).start();
     try {
@@ -95,31 +98,34 @@ async function fetchShuffleCommit() {
         return null;
     }
 }
-function readInstalledPackage(pkgName) {
-    const modulePath = path.join(process.cwd(), "node_modules", pkgName, "package.json");
-    if (!fs.existsSync(modulePath))
+function readInstalledPackage(pkgName, seen = new Set()) {
+    if (seen.has(pkgName))
         return null;
-    const data = JSON.parse(fs.readFileSync(modulePath, "utf8"));
+    seen.add(pkgName);
+    const pkgPath = path.join(process.cwd(), "node_modules", pkgName, "package.json");
+    if (!fs.existsSync(pkgPath))
+        return null;
+    const data = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
     const children = [];
     for (const dep of Object.keys(data.dependencies ?? {})) {
-        const child = readInstalledPackage(dep);
+        const child = readInstalledPackage(dep, seen);
         if (child)
             children.push(child);
     }
     return {
         name: data.name,
         version: data.version,
-        children
+        children,
     };
 }
 function printTree(node, prefix = "") {
     console.log(`${prefix}+-- ${node.name} ${paint(color.gray, node.version)}`);
-    const nextPrefix = prefix + "    ";
+    const next = prefix + "    ";
     for (const child of node.children) {
-        printTree(child, nextPrefix);
+        printTree(child, next);
     }
 }
-/* ------------------------------------------------ */
+/* ---------------- Dependency Processor ---------------- */
 async function processDependencyRoot(name, version, badge) {
     let line = `  ${name} ${paint(color.gray, version)} ${paint(color.gray, badge)}`;
     if (isWorkspace(version)) {
@@ -141,13 +147,14 @@ async function processDependencyRoot(name, version, badge) {
         console.log(line);
     }
     const tree = readInstalledPackage(name);
-    if (tree && tree.children.length > 0) {
+    if (tree?.children.length) {
         printTree(tree, "    ");
     }
 }
+/* ---------------- Command Definition ---------------- */
 export const command = {
     name: "version",
-    description: "Display Shuffle! version with full dependency and subdependency tree",
+    description: "Display Shuffle! version and full dependency tree",
     aliases: ["v", "ver", "--version", "-v", "about", "deps", "tree"],
     action: async () => {
         console.log();
@@ -159,12 +166,20 @@ export const command = {
         const groups = [
             { label: "Dependencies", deps: pkg.dependencies, badge: "[save]" },
             { label: "Dev Dependencies", deps: pkg.devDependencies, badge: "[dev]" },
-            { label: "Peer Dependencies", deps: pkg.peerDependencies, badge: "[peer]" },
-            { label: "Optional Dependencies", deps: pkg.optionalDependencies, badge: "[optional]" }
+            {
+                label: "Peer Dependencies",
+                deps: pkg.peerDependencies,
+                badge: "[peer]",
+            },
+            {
+                label: "Optional Dependencies",
+                deps: pkg.optionalDependencies,
+                badge: "[optional]",
+            },
         ];
         for (const group of groups) {
             const entries = Object.entries(group.deps ?? {});
-            if (entries.length === 0)
+            if (!entries.length)
                 continue;
             console.log(`${group.label} ${paint(color.gray, group.badge)}`);
             for (const [name, version] of entries) {
@@ -172,6 +187,6 @@ export const command = {
             }
             console.log();
         }
-    }
+    },
 };
 //# sourceMappingURL=version.js.map
