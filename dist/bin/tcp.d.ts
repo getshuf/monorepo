@@ -1,15 +1,18 @@
 import { type Server } from "net";
-/**
- * $ shuffle tcp <subcommand>
- *
- * Shuffle TCP is a portable TCP server that can be used to expose your Shuffle homeserver
- *
- * [!] It'll spawn a new process and run in the background until you stop it by using `shuffle tcp stop`
- *     You can also use `shuffle tcp status` to check if it's running
- *     and `shuffle tcp mp/port` to check the port it's running on
- *
- **/
 export declare let server: Server | null;
-export declare function startServer(): Promise<void>;
-export declare function stopServer(): void;
+/**
+ * Sets encryption key and persists metadata to .shuffle/e2ee.tsl3
+ * @param passphrase Human-readable secret (never stored plaintext)
+ * @throws {Error} On filesystem errors or invalid passphrase
+ */
+export declare function addKey(passphrase: string): Promise<void>;
+type StartOptions = {
+    port: number;
+    host: string;
+    encrypt: boolean;
+    force?: boolean;
+};
+export declare function startServer(opts: StartOptions): Promise<void>;
+export declare function stopServer(): Promise<void>;
+export {};
 //# sourceMappingURL=tcp.d.ts.map

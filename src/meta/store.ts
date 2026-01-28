@@ -5,7 +5,6 @@ import path from "path";
 // current+/meta.json
 const SHUFFLE_DIR = path.join(process.cwd(), ".shuffle");
 const META_FILE = path.join(SHUFFLE_DIR, "meta.json");
-
 /**
  * Ensures the configuration directory exists
  */
@@ -38,7 +37,12 @@ export function saveUserMeta(store: any) {
 /**
  * Read a value at type/keyPath with fallback default
  */
-export function getMetaValue(store: any, type: string, keyPath: string, def: any): any {
+export function getMetaValue(
+  store: any,
+  type: string,
+  keyPath: string,
+  def: any,
+): any {
   const parts = keyPath.split(".");
   let cur = store?.[type];
   for (const p of parts) {
@@ -51,7 +55,12 @@ export function getMetaValue(store: any, type: string, keyPath: string, def: any
 /**
  * Set a value at type/keyPath, creating intermediate objects as needed
  */
-export function setMetaValue(store: any, type: string, keyPath: string, value: any): void {
+export function setMetaValue(
+  store: any,
+  type: string,
+  keyPath: string,
+  value: any,
+): void {
   const parts = keyPath.split(".");
   store[type] ??= {};
   let cur = store[type];
